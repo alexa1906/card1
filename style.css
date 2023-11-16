@@ -1,0 +1,28 @@
+body {
+    background-color: #b5c9de; 
+}
+
+#box {
+    background-color: #ffffff; 
+    padding: 20px;
+    padding-top: 120px;
+    margin: auto;
+    margin-top: 300px; 
+    width: 40%;
+    border-radius: 8px;
+    box-shadow: 4px 2px 31px 0px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 4px 2px 31px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 4px 2px 31px 0px rgba(0,0,0,0.75);
+}
+
+.cardImg{
+    background-image: url(img/bg.png);
+    width: 358px;
+    height: 230px;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 150px;
+    left: 595px;
+    padding: 40px;
+    padding-top: 100px;
+}
