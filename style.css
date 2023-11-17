@@ -1,28 +1,128 @@
 body {
-    background-color: #b5c9de; 
+    background-color: #b5c9de;
 }
 
 #box {
-    background-color: #ffffff; 
+    background-color: #ffffff;
     padding: 20px;
     padding-top: 120px;
     margin: auto;
-    margin-top: 300px; 
+    margin-top: 300px;
     width: 40%;
-    border-radius: 8px;
-    box-shadow: 4px 2px 31px 0px rgba(0,0,0,0.75);
-    -webkit-box-shadow: 4px 2px 31px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 4px 2px 31px 0px rgba(0,0,0,0.75);
+    border-radius: 8px; 
+    box-shadow: 4px 2px 31px 0px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 4px 2px 31px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 4px 2px 31px 0px rgba(0, 0, 0, 0.75);
 }
 
-.cardImg{
-    background-image: url(img/bg.png);
+.card {
     width: 358px;
     height: 230px;
-    background-repeat: no-repeat;
+    perspective: 1000px;
     position: absolute;
-    top: 150px;
     left: 595px;
-    padding: 40px;
-    padding-top: 100px;
+    top: 150px;
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.card-face {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: transform 0.7s;
+}
+
+.card-front,
+.card-back {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    background-image: url(img/bg-card.png);
+    background-repeat: repeat;
+    background-size: cover;
+    border-radius: 20px;
+}
+
+.card-front {
+    transform: rotateY(0deg);
+    position: relative;
+}
+
+.card-back {
+    transform: rotateY(180deg);
+    display: none;
+    position: relative;
+}
+
+#chip {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 50px;
+    height: auto;
+}
+
+#company_card {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 90px;
+    height: auto;
+    padding: 10px;
+}
+
+.lineBlack {
+    width: 100%;
+    height: 40px;
+    background-color: black;
+    position: absolute;
+    top: 20%;
+}
+
+.lineAlb {
+    width: 80%;
+    height: 30px;
+    background-color: rgb(205, 205, 205);
+    position: absolute;
+    top: 45%;
+    left: 30px;
+    border-radius: 5px;
+}
+
+#displayCardNumber{
+    position: absolute;
+    left: 60px;
+    top: 90px;
+    font-size: 24px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); 
+}
+
+#lastRow {
+    padding: 10px;
+    position: absolute;
+    bottom: 10px; 
+    left: 0;
+    right: 0;
+}
+
+#displayCardName{
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); 
+    padding: 5px;
+}
+
+#displayCardExpire{
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); 
+    padding: 5px;
+}
+
+.displayCardCvv{
+    display: flex;
+    flex-direction: row-reverse;
+    padding-right: 10px;
 }
