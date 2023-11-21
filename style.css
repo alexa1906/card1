@@ -7,7 +7,6 @@ body {
     padding: 20px;
     padding-top: 120px;
     margin: auto;
-    margin-top: 300px;
     width: 40%;
     border-radius: 8px; 
     box-shadow: 4px 2px 31px 0px rgba(0, 0, 0, 0.75);
@@ -19,11 +18,10 @@ body {
     width: 358px;
     height: 230px;
     perspective: 1000px;
-    position: absolute;
-    left: 595px;
-    top: 150px;
     background-color: transparent;
     border-color: transparent;
+    margin: 0 auto;
+    top: 20%;
 }
 
 .card-face {
@@ -93,6 +91,8 @@ body {
 }
 
 #displayCardNumber{
+    display: flex;
+    flex-direction: row;
     position: absolute;
     left: 60px;
     top: 90px;
@@ -113,6 +113,7 @@ body {
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); 
     padding: 5px;
+    font-weight: 600;
 }
 
 #displayCardExpire{
@@ -126,3 +127,91 @@ body {
     flex-direction: row-reverse;
     padding-right: 10px;
 }
+
+
+.card-number {
+    padding: 6px 6px;
+    color: #131212;
+    font-weight: 500;
+    margin: 0 auto;
+    font-size: 20px;
+    display: flex;
+    overflow: hidden;
+    white-space: nowrap;
+    gap: 10px;
+  }
+
+.card-number-hidden {
+    display: inline-block;
+    position: relative;
+    white-space: nowrap;
+  }
+  
+  .card-number-hidden.slide-up {
+    animation: slideup 0.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+  }
+  
+  @keyframes slideup {
+    0% {
+      top: 0px;
+    }
+    20% {
+      top: -10px;
+    }
+    40% {
+      top: -20px;
+    }
+    60% {
+      top: 30px;
+    }
+    80% {
+      top: 15px;
+    }
+    100% {
+      top: 0px;
+    }
+  }
+  
+
+  .slide-up {
+    animation: slideup 0.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+@keyframes slideup {
+    0% {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+#popup {
+    display: none;
+    position: absolute;
+    top: calc(100% + 20px);
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 12px;
+    border-radius: 8px;
+    background-color: #ffcccc;
+    color: #cc0000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  #popup:before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 8px;
+    border-style: solid;
+    border-color: transparent transparent #ffcccc transparent;
+
+  }
