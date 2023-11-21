@@ -1,63 +1,49 @@
-// schimb de #
-
 const cardNumberInput = document.getElementById('cardNumber');
 const displayCardNumber = document.getElementById('displayCardNumber');
-const imgCompanie = document.querySelector("#company_card");
-
-const maskCardNumber = (cardNumber) => {
-    const digits = cardNumber.split('');
-    let masked = '';
-
-    digits.forEach((character, index) => {
-        if (isNaN(character)) {
-            masked += '#';
-        } else {
-            masked += character;
-        }
-
-        if ((index + 1) % 4 === 0 && index !== digits.length - 1) {
-            masked += ' ';
-        }
-
-        if (cardNumberInput.value.charAt(0) === '6') {
-            imgCompanie.src = "img/amex.png";
-        } else if (cardNumberInput.value.charAt(0) === '4') {
-            imgCompanie.src = "img/visa.png";
-        } else {
-            imgCompanie.src = "img/mastercard.png"
-        }
-    });
-
-    return masked;
-};
-
-cardNumberInput.addEventListener('input', () => {
-    const inputNumbers = cardNumberInput.value;
-    const maskedNumbers = maskCardNumber(inputNumbers);
-
-    displayCardNumber.textContent = maskedNumbers;
-});
-
-// schimb de nume
+const imgCompany = document.querySelector("#company_card");
+const form = document.querySelector('form');
+const errorText = document.getElementById('error_text');
+const cardCvvInput = document.querySelector("#cvv")
+const cardCvvDisplay = document.querySelector(".displayCardCvv")
 const cardNameInput = document.getElementById('cardName');
 const displayCardName = document.getElementById('displayCardName');
 
-const maskCardName = (cardName) => {
-    const leters = cardName.split('');
-    let masked = '';
 
-    leters.forEach(character => {
-        masked += character;
+const maskCardNumber = (cardNumber) => {
+    let cardNumbersDisplay = '';
+
+    cardNumber.split('').forEach((character, index) => {
+        if (!isNaN(character) && character !== ' ') {
+            if (index > 0 && index % 4 === 0) {
+                cardNumbersDisplay += ' ';
+            }
+            cardNumbersDisplay += character;
+        }
     });
 
-    return masked;
+    if (cardNumbersDisplay.charAt(0) === '6') {
+        imgCompany.src = "img/amex.png";
+    } else if (cardNumbersDisplay.charAt(0) === '4') {
+        imgCompany.src = "img/visa.png";
+    } else {
+        imgCompany.src = "img/mastercard.png";
+    }
+
+    return cardNumbersDisplay;
 };
 
-cardNameInput.addEventListener('input', () => {
-    const inputName = cardNameInput.value;
-    const maskedName = maskCardName(inputName);
 
-    displayCardName.textContent = maskedName;
+cardNumberInput.addEventListener('input', (event) => {
+    const inputValue = event.target.value;
+    displayCardNumber.textContent = maskCardNumber(inputValue);
+
+    showError(inputValue, errorText);
+});
+
+// schimb de nume
+
+cardNameInput.addEventListener('input', () => {
+    displayCardName.textContent = cardNameInput.value;
 });
 
 // schimb de data
@@ -76,9 +62,6 @@ inputDate.addEventListener('change', updateCardExpire);
 inputYear.addEventListener('change', updateCardExpire);
 
 // schimb cvv
-
-const cardCvvInput = document.querySelector("#cvv")
-const cardCvvDisplay = document.querySelector(".displayCardCvv")
 
 let isFlipped = false;
 
@@ -100,36 +83,60 @@ const toggleCardView = () => {
     }
 };
 
-cardCvvInput.addEventListener("click", toggleCardView);
+cardCvvInput.addEventListener("focus", toggleCardView);
+cardCvvInput.addEventListener("focusout", toggleCardView);
 
 
 const maskCardCvv = (cardCvv) => {
-    const nr = cardCvv.split('');
-    let masked = '';
+    let nr = ""
+   cardCvv.split('').forEach(character => {
+    if (!isNaN(character) && character !== ' ') {
+        nr += character;
+    }
+ });
 
-    nr.forEach(character => {
-        masked += character;
-    });
-
-    return masked;
+    return nr;
 };
 
 cardCvvInput.addEventListener('input', () => {
     const inputCvv = cardCvvInput.value;
-    const maskedCvv = maskCardCvv(inputCvv);
+    cardCvvDisplay.textContent = maskCardCvv(inputCvv);
 
-    cardCvvDisplay.textContent = maskedCvv;
+    showError(inputCvv, errorText);
 });
 
 
+const showError = (inputValue, errorElement) => {
+    const containsNonNumeric = /[^0-9]/.test(inputValue);
 
+    if (containsNonNumeric) {
+        errorElement.textContent = 'Please enter only numeric characters.';
+        errorElement.style.display = 'block';
+        return true; 
+    } else {
+        errorElement.style.display = 'none';
+        return false; 
+    }
+};
+
+const buttonSubmit = document.querySelector("#submitButton")
+form.addEventListener('submit', (ev) => {
+
+    const cardNumberError = showError(cardNumberInput.value, errorText);
+    const cardCvvError = showError(cardCvvInput.value, errorText);
+
+    if (cardNumberError || cardCvvError) {
+        ev.preventDefault(); 
+        
+        buttonSubmit.style.backgroundColor = "red"
+    }
+});
 
 // const cardForm = document.querySelector('#box form');
 
 // const handleSubmit = (ev) => {
 
 //     ev.preventDefault();
-
 //     const cardData = {
 //         cardNumber: cardNumberInput.value,
 //         cardName: cardNameInput.value,
@@ -145,9 +152,10 @@ cardCvvInput.addEventListener('input', () => {
 //     console.log(cardDataJson)
 
 //     cardForm.reset();
-//     isFlipped = false   
+//     isFlipped = false
 
 // };
 
 // cardForm.addEventListener('submit', handleSubmit);
+
 
